@@ -1,0 +1,17 @@
+name: Run on main
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+
+jobs:
+  run_on_main:
+    runs-on: ubuntu-22.04
+    name: Dummy stuff
+    steps:
+      - uses: actions/github-script@v6
+        with:
+          script: |
+            const x = 1;

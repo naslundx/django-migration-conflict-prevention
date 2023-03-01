@@ -1,0 +1,39 @@
+name: Check Migration
+on:
+  workflow_run:
+    workflows: [Run on main]
+    types:
+      - completed
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+    branches-ignore:
+      - 'main'
+
+jobs:
+  check_migration:
+    runs-on: ubuntu-22.04
+    name: Test changed-files
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Find any new migrations
+        id: changed-files-specific
+        uses: tj-actions/changed-files@v35
+        with:
+          files: |
+            **/migrations/*.py
+
+      - name: Check if branch is behind dev
+        if: steps.changed-files-specific.outputs.any_changed == 'true'
+        run: |
+          TEST=$(git rev-list --left-right --count origin/dev...origin/test-branch)
+          stringarray=($TEST)
+          BEHIND=${stringarray[0]}
+          if [[ $BEHIND != 0 ]]; then
+            exit 1;
+          fi
