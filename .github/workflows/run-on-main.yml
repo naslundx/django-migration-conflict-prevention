@@ -9,6 +9,10 @@ jobs:
     runs-on: ubuntu-22.04
     name: Trigger
     steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          
       - name: Trigger other PRs
         run: |
           chmod +x run-checker.sh
