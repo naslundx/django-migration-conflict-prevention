@@ -5,7 +5,10 @@ on:
       - main
 
 jobs:
-  run_on_main:
+  run-on-main:
     runs-on: ubuntu-22.04
-    name: Dummy stuff
-    run: ./run-checker.sh
+    name: Trigger
+    steps:
+      - name: Trigger other PRs
+        run: ./run-checker.sh
+        shell: bash
