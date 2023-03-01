@@ -10,5 +10,7 @@ jobs:
     name: Trigger
     steps:
       - name: Trigger other PRs
-        run: ${{ github.workspace }}/run-checker.sh
+        run: |
+          chmod +x run-checker.sh
+          ./run-checker.sh
         shell: bash
