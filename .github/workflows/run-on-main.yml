@@ -18,3 +18,5 @@ jobs:
           chmod +x run-checker.sh
           ./run-checker.sh
         shell: bash
+        env:
+          GITHUB_TOKEN: ${{ secrets.gh_token }}
