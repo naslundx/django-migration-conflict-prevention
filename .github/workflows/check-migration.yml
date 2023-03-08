@@ -10,6 +10,9 @@ on:
     workflows: [Run on main]
     types:
       - completed
+  push:
+    branches-ignore:
+      - 'main'
   pull_request:
     types:
       - opened
@@ -37,7 +40,7 @@ jobs:
       - name: Check if branch is behind dev
         if: steps.changed-files-specific.outputs.any_changed == 'true'
         run: |
-          TEST=$(git rev-list --left-right --count origin/main...origin/test-branch)
+          TEST=$(git rev-list --left-right --count origin/main...origin/test-branch-2)
           stringarray=($TEST)
           BEHIND=${stringarray[0]}
           if [[ $BEHIND != 0 ]]; then
