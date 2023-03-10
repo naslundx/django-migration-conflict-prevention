@@ -1,15 +1,15 @@
 name: Check Migration
 on:
-  workflow_dispatch:
-    inputs:
-      tags:
-        description: 'Test scenario tags'
-        required: false
-        type: boolean
-  workflow_run:
-    workflows: [Run on main]
-    types:
-      - completed
+  # workflow_dispatch:
+  #   inputs:
+  #     tags:
+  #       description: 'Test scenario tags'
+  #       required: false
+  #       type: boolean
+  # workflow_run:
+  #   workflows: [Run on main]
+  #   types:
+  #     - completed
   push:
     branches-ignore:
       - 'main'
