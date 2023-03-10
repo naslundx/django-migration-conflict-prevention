@@ -37,4 +37,3 @@ jobs:
         shell: bash
         env:
           GITHUB_COMMIT_STATUS_TOKEN: ${{ secrets.gh_token }}
-

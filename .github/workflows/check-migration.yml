@@ -40,7 +40,8 @@ jobs:
       - name: Check if branch is behind dev
         if: steps.changed-files-specific.outputs.any_changed == 'true'
         run: |
-          TEST=$(git rev-list --left-right --count origin/main...origin/test-branch-2)
+          CURRENT=$(git rev-parse --abbrev-ref HEAD)
+          TEST=$(git rev-list --left-right --count origin/main...origin/$CURRENT)
           stringarray=($TEST)
           BEHIND=${stringarray[0]}
           if [[ $BEHIND != 0 ]]; then
