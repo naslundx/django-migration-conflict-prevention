@@ -30,25 +30,15 @@ jobs:
         with:
           fetch-depth: 0
 
-      # - name: Find any new migrations
-      #   id: changed-files-specific
-      #   uses: tj-actions/changed-files@v35
-      #   with:
-      #     files: |
-      #       **/migrations/*.py
-
-      # - name: Check if branch is behind dev
-      #   if: steps.changed-files-specific.outputs.any_changed == 'true'
-      #   run: |
-      #     CURRENT=$(git rev-parse --abbrev-ref HEAD)
-      #     TEST=$(git rev-list --left-right --count origin/main...origin/$CURRENT)
-      #     stringarray=($TEST)
-      #     BEHIND=${stringarray[0]}
-      #     if [[ $BEHIND != 0 ]]; then
-      #       exit 1;
-      #     fi
+      - name: Find any new migrations
+        id: changed-files-specific
+        uses: tj-actions/changed-files@v35
+        with:
+          files: |
+            **/migrations/*.py
 
       - name: execute script
+        if: steps.changed-files-specific.outputs.any_changed == 'true'
         run: |
           CURRENT=$(git rev-parse --abbrev-ref HEAD)
           chmod +x update-status.sh
