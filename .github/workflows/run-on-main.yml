@@ -31,11 +31,11 @@ jobs:
           python -m pip install --upgrade pip
           pip install github_commit_status
 
-      - name: execute py script
+      - name: execute script
         run: |
           chmod +x update-status.sh
           mkdir -p test/
-          cd test/ && ../update-status.sh
+          cd test/ && ../check-all.sh
         shell: bash
         env:
           GITHUB_COMMIT_STATUS_TOKEN: ${{ secrets.gh_token }}
