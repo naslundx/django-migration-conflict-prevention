@@ -13,10 +13,28 @@ jobs:
         with:
           fetch-depth: 0
           
-      - name: Trigger other PRs
+      # - name: Trigger other PRs
+      #   run: |
+      #     chmod +x run-checker.sh
+      #     ./run-checker.sh
+      #   shell: bash
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.gh_token }}
+
+      - name: setup python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: install python packages
         run: |
-          chmod +x run-checker.sh
-          ./run-checker.sh
+          python -m pip install --upgrade pip
+          pip install github_commit_status
+
+      - name: execute py script
+        run: |
+          mkdir -P test/ && cd test/ && ./update-status.sh
         shell: bash
         env:
-          GITHUB_TOKEN: ${{ secrets.gh_token }}
+          GITHUB_COMMIT_STATUS_TOKEN: ${{ secrets.gh_token }}
+
