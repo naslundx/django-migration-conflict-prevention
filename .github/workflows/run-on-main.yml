@@ -33,7 +33,7 @@ jobs:
 
       - name: execute py script
         run: |
-          mkdir -P test/ && cd test/ && ./update-status.sh
+          mkdir -p test/ && cd test/ && ./update-status.sh
         shell: bash
         env:
           GITHUB_COMMIT_STATUS_TOKEN: ${{ secrets.gh_token }}
