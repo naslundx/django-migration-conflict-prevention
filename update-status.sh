@@ -11,7 +11,7 @@ COMMIT_HASH=$(git rev-parse HEAD)
 
 COMPARISON=$(git rev-list --left-right --count origin/main...origin/$BRANCH_NAME)
 STRINGARRAY=($COMPARISON)
-BEHIND=${COMPARISON[0]}
+BEHIND=${STRINGARRAY[0]}
 
 if [[ $BEHIND != 0 ]]; then
     github_commit_status update \
