@@ -12,7 +12,7 @@ PR=$(gh pr list --label 'has-migrations' --json headRefName | jq '.[].headRefNam
 
 for BRANCH_NAME in "$PR"
 do
-    ../check-all.sh "$BRANCH_NAME"
+    ../update-status.sh "$BRANCH_NAME"
 done
 
 
