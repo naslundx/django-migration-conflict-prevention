@@ -18,6 +18,8 @@ jobs:
     steps:
       # Fetch the latest code (for this branch)
       - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
       # Check if any migrations exist
       # (could also just check for the label if it runs after labeler.yml)
