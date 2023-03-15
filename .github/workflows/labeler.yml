@@ -2,6 +2,10 @@ name: "Pull Request Labeler"
 on:
 - pull_request_target
 
+# THIS JOB RUNS ON EVERY PULL REQUEST
+# AND LABELS/UNLABELS IT IF IT HAS MIGRATIONS
+# (Actual configuration in ../labeler.yml)
+
 jobs:
   triage:
     permissions:

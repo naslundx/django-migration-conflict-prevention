@@ -1,15 +1,5 @@
 name: Check Migration
 on:
-  # workflow_dispatch:
-  #   inputs:
-  #     tags:
-  #       description: 'Test scenario tags'
-  #       required: false
-  #       type: boolean
-  # workflow_run:
-  #   workflows: [Run on main]
-  #   types:
-  #     - completed
   push:
     branches-ignore:
       - 'main'
@@ -26,10 +16,11 @@ jobs:
     runs-on: ubuntu-22.04
     name: Test changed-files
     steps:
+      # Fetch the latest code (for this branch)
       - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
 
+      # Check if any migrations exist
+      # (could also just check for the label if it runs after labeler.yml)
       - name: Find any new migrations
         id: changed-files-specific
         uses: tj-actions/changed-files@v35
@@ -37,6 +28,9 @@ jobs:
           files: |
             **/migrations/*.py
 
+      # If no migrations, the job ends here!
+
+      # Install python package github_commit_status
       - name: setup python
         if: steps.changed-files-specific.outputs.any_changed == 'true'
         uses: actions/setup-python@v4
@@ -49,6 +43,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install github_commit_status
 
+      # Check status of _this_ branch
       - name: execute script
         if: steps.changed-files-specific.outputs.any_changed == 'true'
         run: |
